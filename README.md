@@ -22,3 +22,6 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Backend
+[https://github.com/thienphuoc09/book-store.git](https://github.com/thienphuoc09/book-store.git)
