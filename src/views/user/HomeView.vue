@@ -27,11 +27,11 @@
           :key="book.id"
           class="bg-white shadow rounded overflow-hidden group"
         >
-          <div class="relative w-full">
+          <div class="relative">
             <img
               :src="book.avatar"
               alt="product 1"
-              class="w-40 h-28 object-cover"
+              class="w-full h-52 object-contain"
             />
             <div
               class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
@@ -106,14 +106,18 @@
       <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">
         Sản phẩm bán chạy
       </h2>
-      <div class="grid grid-cols-4 gap-6">
+      <div class="grid grid-cols-5 gap-6">
         <div
           v-for="book in books"
           :key="book.id"
           class="bg-white shadow rounded overflow-hidden group"
         >
           <div class="relative">
-            <img :src="book.avatar" alt="product 1" class="w-full" />
+            <img
+              :src="book.avatar"
+              alt="product 1"
+              class="w-full h-52 object-contain"
+            />
             <div
               class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
             >
@@ -173,7 +177,7 @@
 </template>
 
 <script>
-import BookAPIs from "@/APIs/CategoryAPIs";
+import BookAPIs from "@/APIs/BookAPIs";
 
 export default {
   name: "HomePage",
@@ -182,6 +186,7 @@ export default {
     return {
       books: [],
       isLoading: false,
+      id: null,
     };
   },
   mounted() {

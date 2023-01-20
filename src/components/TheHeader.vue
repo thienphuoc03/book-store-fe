@@ -53,13 +53,21 @@
           </div>
         </a>
         <a
-          href="#"
+          @click="navigateTo('/profile')"
           class="text-center text-gray-700 hover:text-primary transition relative"
         >
           <div class="text-2xl">
             <i class="fa-regular fa-user"></i>
           </div>
-          <div class="text-xs leading-3">Account</div>
+          <div class="text-xs leading-3">
+            Account
+            <!-- <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li>Đăng xuất</li>
+            </ul> -->
+          </div>
         </a>
       </div>
     </div>

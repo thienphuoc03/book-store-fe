@@ -80,6 +80,7 @@
           >
         </div>
         <a
+          v-if="isLogin"
           @click="navigateTo('/login')"
           class="text-gray-200 hover:text-black hover:bg-white cursor-pointer transition border border-solid py-2 px-4 rounded-full"
           >Đăng nhập</a
@@ -98,16 +99,19 @@ export default {
   data() {
     return {
       categories: [],
+      isLogin: false,
       isLoading: false,
     };
   },
   mounted() {
     this.getAllCategory();
+    this.checkLogin();
   },
   methods: {
     navigateTo(route) {
       this.$router.push(route);
     },
+
     async getAllCategory() {
       this.isLoading = true;
       CategoryAPIs.getAllCategory()
@@ -118,6 +122,15 @@ export default {
           console.log(error);
         });
       this.isLoading = false;
+    },
+
+    async checkLogin() {
+      const user = localStorage.getItem("user");
+      if (user) {
+        this.isLogin = true;
+      } else {
+        this.isLogin = false;
+      }
     },
   },
 };

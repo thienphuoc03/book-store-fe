@@ -501,7 +501,6 @@
 </template>
 
 <script>
-import CategoryAPIs from "@/APIs/CategoryAPIs";
 import BookAPIs from "@/APIs/BookAPIs";
 
 export default {
@@ -509,7 +508,7 @@ export default {
 
   data() {
     return {
-      categories: [],
+      book: [],
       isLoading: false,
     };
   },
@@ -520,27 +519,14 @@ export default {
     navigateTo(route) {
       this.$router.push(route);
     },
-    async getAllCategory() {
-      this.isLoading = true;
-      CategoryAPIs.getAllCategory()
-        .then((response) => {
-          this.categories = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      this.isLoading = false;
-    },
-    async getAllBook() {
-      this.isLoading = true;
-      BookAPIs.getAllBook()
+    async getBookById() {
+      BookAPIs.getBookById(this.id)
         .then((response) => {
           this.books = response.data;
         })
         .catch((error) => {
           console.log(error);
         });
-      this.isLoading = false;
     },
   },
 };

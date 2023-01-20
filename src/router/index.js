@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import store from "@/store";
+
 import HomeView from "../views/user/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import ShopView from "../views/user/ShopView.vue";
@@ -22,6 +24,9 @@ const routes = [
       { path: "/profile", name: "profile", component: ProfileView },
       { path: "/wish-list", name: "wishList", component: WishListView },
     ],
+    // meta: {
+    //   requiresAuth: true,
+    // },
   },
   {
     path: "/login",
@@ -37,7 +42,6 @@ const routes = [
   //   path: "/admin",
   //   name: "admin",
   //   component: LoginView,
-  //   redirect: { name: "login" },
   //   children: [
   //     { path: "/home", name: "home", component: HomeView },
   //     { path: "/login", name: "login", component: LoginView },
@@ -48,6 +52,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      next();
+      return;
+    }
+    next("/");
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -3,11 +3,11 @@ import BaseAPIs from "./BaseAPIs";
 
 class AuthorAPIs {
   endpoints = {
-    getAllAuthorUrl: BaseAPIs.baseURL + "/authors",
+    authorUrl: BaseAPIs.baseURL + "/authors",
   };
   async getAllAuthor() {
     try {
-      let response = await axios.get(this.endpoints.getAllAuthorUrl);
+      let response = await axios.get(this.endpoints.authorUrl);
 
       return Promise.resolve(response);
     } catch (error) {

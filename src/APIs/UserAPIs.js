@@ -1,14 +1,16 @@
 import axios from "axios";
 import BaseAPIs from "./BaseAPIs";
 
-class CategoryAPIs {
+class UserAPIs {
   endpoints = {
-    categoryUrl: BaseAPIs.baseURL + "/categories",
+    userUrl: BaseAPIs.baseURL + "/users",
   };
 
-  async getAllCategory() {
+  async getUserById(id) {
     try {
-      let response = await axios.get(this.endpoints.categoryUrl);
+      let response = await axios.get(this.endpoints.userUrl + "/" + id, {
+        headers: BaseAPIs.headers,
+      });
 
       return Promise.resolve(response);
     } catch (error) {
@@ -18,4 +20,4 @@ class CategoryAPIs {
   }
 }
 
-export default new CategoryAPIs();
+export default new UserAPIs();

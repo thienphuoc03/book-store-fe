@@ -8,18 +8,20 @@
           ><i class="fa-solid fa-house" title="Home"></i></span
       ></a>
       <h2 class="text-3xl uppercase font-medium mb-1">Login</h2>
-      <form @submit="handleLogin" autocomplete="off">
+      <form @submit.prevent="login" autocomplete="off">
         <div class="space-y-2">
           <div>
             <label for="username" class="text-gray-600 mb-2 flex justify-start"
               >Username</label
             >
             <input
-              type="username"
+              type="text"
               name="username"
               id="username"
+              v-model="username"
               class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 placeholder-gray-400"
               placeholder="thienphuoc"
+              maxlength="60"
               required
             />
           </div>
@@ -70,7 +72,6 @@
           <button
             type="submit"
             class="block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium"
-            @click="Login"
           >
             Login
           </button>
@@ -121,11 +122,16 @@ export default {
       username: "",
       password: "",
       showPassword: false,
-      data: [],
-      token: "",
+      // data: null,
+      // token: "",
+      // user: {
+      //   access_token: "",
+      //   id: "",
+      //   username: "",
+      //   roles: [],
+      // },
     };
   },
-  mounted() {},
   methods: {
     navigateTo(route) {
       this.$router.push(route);
@@ -133,15 +139,16 @@ export default {
     toggleShowPassword() {
       this.showPassword = !this.showPassword;
     },
-    handleLogin(user) {
-      this.$store.dispatch("auth/login", user).then(
-        () => {
-          this.$router.push("/home");
-        },
-        (error) => {
-          alert(error);
-        }
-      );
+    async login() {
+      let username = this.username;
+      let password = this.password;
+      this.$store
+        .dispatch("login", {
+          username,
+          password,
+        })
+        .then(() => this.$router.push("/"))
+        .catch((err) => console.log(err));
     },
   },
 };

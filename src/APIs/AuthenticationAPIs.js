@@ -5,13 +5,12 @@ class AuthenticationAPIs {
   endpoints = {
     LoginUrl: BaseAPIs.baseURL + "/login",
   };
-  async login(username, password) {
+
+  async login(user) {
     try {
-      let response = await axios.post(this.endpoints.LoginUrl, {
-        params: {
-          username: username,
-          password: password,
-        },
+      const response = await axios.post(this.endpoints.LoginUrl, {
+        username: user.username,
+        password: user.password,
       });
 
       return Promise.resolve(response);
@@ -19,6 +18,10 @@ class AuthenticationAPIs {
       console.log("Call API get all error", error);
       return Promise.reject(error);
     }
+  }
+
+  async logout() {
+    localStorage.removeItem("user");
   }
 }
 
