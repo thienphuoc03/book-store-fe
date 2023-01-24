@@ -2,11 +2,10 @@
   <footer class="bg-white pt-16 pb-12 border-t border-gray-100">
     <div class="container grid grid-cols-3">
       <div class="col-span-1 space-y-8">
-        <img
-          src="../../src/assets/images/images/logo.svg"
-          alt="logo"
-          class="w-30"
-        />
+        <div class="flex items-center">
+          <h3 class="text-2xl font-bold text-red-500">Book</h3>
+          <h3 class="text-2xl font-bold">Store</h3>
+        </div>
         <div class="mr-2">
           <p class="text-gray-500">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, hic?

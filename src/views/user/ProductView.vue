@@ -2,42 +2,38 @@
   <!-- product-detail -->
   <div class="container grid grid-cols-2 gap-6">
     <div>
-      <img
-        src="../../assets/images/images/products/product1.jpg"
-        alt="product"
-        class="w-full"
-      />
+      <img :src="book.avatar" alt="product" class="w-full max-w-[80%]" />
       <div class="grid grid-cols-5 gap-4 mt-4">
         <img
-          src="../../assets/images/images/products/product2.jpg"
+          :src="book.avatar"
           alt="product2"
           class="w-full cursor-pointer border border-primary"
         />
         <img
-          src="../../assets/images/images/products/product3.jpg"
+          :src="book.avatar"
           alt="product2"
           class="w-full cursor-pointer border"
         />
         <img
-          src="../../assets/images/images/products/product4.jpg"
+          :src="book.avatar"
           alt="product2"
           class="w-full cursor-pointer border"
         />
         <img
-          src="../../assets/images/images/products/product5.jpg"
+          :src="book.avatar"
           alt="product2"
           class="w-full cursor-pointer border"
         />
         <img
-          src="../../assets/images/images/products/product6.jpg"
+          :src="book.avatar"
           alt="product2"
           class="w-full cursor-pointer border"
         />
       </div>
     </div>
 
-    <div>
-      <h2 class="text-3xl font-medium uppercase mb-2">Italian L Shape Sofa</h2>
+    <div class="text-left">
+      <h2 class="text-3xl font-medium uppercase mb-2">{{ book.name }}</h2>
       <div class="flex items-center mb-4">
         <div class="flex gap-1 text-sm text-yellow-400">
           <span><i class="fa-solid fa-star"></i></span>
@@ -50,16 +46,21 @@
       </div>
       <div class="space-y-2">
         <p class="text-gray-800 font-semibold space-x-2">
-          <span>Availability: </span>
-          <span class="text-green-600">In Stock</span>
+          <span>Tình trạng: </span>
+          <span class="text-green-600" v-if="book.quantity > 0">Còn hàng</span>
+          <span class="text-red-600" v-else>Hết hàng</span>
         </p>
-        <p class="space-x-2">
-          <span class="text-gray-800 font-semibold">Brand: </span>
-          <span class="text-gray-600">Apex</span>
+        <p class="space-x-2" v-for="author in book.authors" v-bind:key="author">
+          <span class="text-gray-800 font-semibold">Tác giả: </span>
+          <span class="text-gray-600">{{ author }}</span>
         </p>
-        <p class="space-x-2">
-          <span class="text-gray-800 font-semibold">Category: </span>
-          <span class="text-gray-600">Sofa</span>
+        <p
+          class="space-x-2"
+          v-for="category in book.categories"
+          v-bind:key="category"
+        >
+          <span class="text-gray-800 font-semibold">Danh mục: </span>
+          <span class="text-gray-600">{{ category }} <br /></span>
         </p>
         <p class="space-x-2">
           <span class="text-gray-800 font-semibold">SKU: </span>
@@ -67,111 +68,34 @@
         </p>
       </div>
       <div class="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
-        <p class="text-xl text-primary font-semibold">$45.00</p>
-        <p class="text-base text-gray-400 line-through">$55.00</p>
-      </div>
-
-      <p class="mt-4 text-gray-600">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos eius eum
-        reprehenderit dolore vel mollitia optio consequatur hic asperiores
-        inventore suscipit, velit consequuntur, voluptate doloremque iure
-        necessitatibus adipisci magnam porro.
-      </p>
-
-      <div class="pt-4">
-        <h3 class="text-sm text-gray-800 uppercase mb-1">Size</h3>
-        <div class="flex items-center gap-2">
-          <div class="size-selector">
-            <input type="radio" name="size" id="size-xs" class="hidden" />
-            <label
-              for="size-xs"
-              class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600"
-              >XS</label
-            >
-          </div>
-          <div class="size-selector">
-            <input type="radio" name="size" id="size-sm" class="hidden" />
-            <label
-              for="size-sm"
-              class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600"
-              >S</label
-            >
-          </div>
-          <div class="size-selector">
-            <input type="radio" name="size" id="size-m" class="hidden" />
-            <label
-              for="size-m"
-              class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600"
-              >M</label
-            >
-          </div>
-          <div class="size-selector">
-            <input type="radio" name="size" id="size-l" class="hidden" />
-            <label
-              for="size-l"
-              class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600"
-              >L</label
-            >
-          </div>
-          <div class="size-selector">
-            <input type="radio" name="size" id="size-xl" class="hidden" />
-            <label
-              for="size-xl"
-              class="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600"
-              >XL</label
-            >
-          </div>
-        </div>
-      </div>
-
-      <div class="pt-4">
-        <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Color</h3>
-        <div class="flex items-center gap-2">
-          <div class="color-selector">
-            <input type="radio" name="color" id="red" class="hidden" />
-            <label
-              for="red"
-              class="border border-gray-200 rounded-sm h-6 w-6 cursor-pointer shadow-sm block"
-              style="background-color: #fc3d57"
-            ></label>
-          </div>
-          <div class="color-selector">
-            <input type="radio" name="color" id="black" class="hidden" />
-            <label
-              for="black"
-              class="border border-gray-200 rounded-sm h-6 w-6 cursor-pointer shadow-sm block"
-              style="background-color: #000"
-            ></label>
-          </div>
-          <div class="color-selector">
-            <input type="radio" name="color" id="white" class="hidden" />
-            <label
-              for="white"
-              class="border border-gray-200 rounded-sm h-6 w-6 cursor-pointer shadow-sm block"
-              style="background-color: #fff"
-            ></label>
-          </div>
-        </div>
+        <p class="text-xl text-primary font-semibold">
+          {{ toCurrency((book.price / 100) * 80) }}
+        </p>
+        <p class="text-base text-gray-400 line-through">
+          {{ toCurrency(book.price) }}
+        </p>
       </div>
 
       <div class="mt-4">
-        <h3 class="text-sm text-gray-800 uppercase mb-1">Quantity</h3>
+        <h3 class="text-sm text-gray-800 uppercase mb-1">Số lượng:</h3>
         <div
           class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max"
         >
-          <div
+          <button
             class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none"
+            @click="decrement"
           >
             -
-          </div>
+          </button>
           <div class="h-8 w-8 text-base flex items-center justify-center">
-            4
+            {{ quantity }}
           </div>
-          <div
+          <button
             class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none"
+            @click="increment"
           >
             +
-          </div>
+          </button>
         </div>
       </div>
 
@@ -217,52 +141,67 @@
   <!-- description -->
   <div class="container pb-16">
     <h3
-      class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium"
+      class="text-2xl mt-4 border-b border-gray-200 font-roboto text-gray-800 pb-3 font-semibold"
     >
-      Product details
+      Mô tả sản phẩm
     </h3>
-    <div class="w-3/5 pt-6">
-      <div class="text-gray-600">
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-          necessitatibus deleniti natus dolore cum maiores suscipit optio itaque
-          voluptatibus veritatis tempora iste facilis non aut sapiente dolor
-          quisquam, ex ab.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, quae
-          accusantium voluptatem blanditiis sapiente voluptatum. Autem ab,
-          dolorum assumenda earum veniam eius illo fugiat possimus illum dolor
-          totam, ducimus excepturi.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Error quia
-          modi ut expedita! Iure molestiae labore cumque nobis quasi fuga,
-          quibusdam rem? Temporibus consectetur corrupti rerum veritatis numquam
-          labore amet.
-        </p>
+    <div class="w-full pt-6">
+      <div class="text-gray-600 w-full text-left">
+        <p>{{ book.description }}</p>
       </div>
 
       <table
-        class="table-auto border-collapse w-full text-left text-gray-600 text-sm mt-6"
+        class="table-auto border-collapse w-3/4 text-left text-gray-600 text-sm mt-6"
       >
         <tr>
-          <th class="py-2 px-4 border border-gray-300 w-40 font-medium">
-            Color
+          <th
+            class="py-2 px-4 border border-gray-300 w-40 font-medium bg-gray-200"
+          >
+            Công ty phát hành
           </th>
-          <th class="py-2 px-4 border border-gray-300">Blank, Brown, Red</th>
+          <th class="py-2 px-4 border border-gray-300">1980 Books</th>
         </tr>
         <tr>
-          <th class="py-2 px-4 border border-gray-300 w-40 font-medium">
-            Material
+          <th
+            class="py-2 px-4 border border-gray-300 w-40 font-medium bg-gray-200"
+          >
+            Ngày xuất bản
           </th>
-          <th class="py-2 px-4 border border-gray-300">Latex</th>
+          <th class="py-2 px-4 border border-gray-300">{{ book.createdAt }}</th>
         </tr>
         <tr>
-          <th class="py-2 px-4 border border-gray-300 w-40 font-medium">
-            Weight
+          <th
+            class="py-2 px-4 border border-gray-300 w-40 font-medium bg-gray-200"
+          >
+            Kích thước
           </th>
-          <th class="py-2 px-4 border border-gray-300">55kg</th>
+          <th class="py-2 px-4 border border-gray-300">13x20.5cm</th>
+        </tr>
+        <tr>
+          <th
+            class="py-2 px-4 border border-gray-300 w-40 font-medium bg-gray-200"
+          >
+            Loại bìa
+          </th>
+          <th class="py-2 px-4 border border-gray-300">Bìa mềm</th>
+        </tr>
+        <tr>
+          <th
+            class="py-2 px-4 border border-gray-300 w-40 font-medium bg-gray-200"
+          >
+            Số trang
+          </th>
+          <th class="py-2 px-4 border border-gray-300">436</th>
+        </tr>
+        <tr>
+          <th
+            class="py-2 px-4 border border-gray-300 w-40 font-medium bg-gray-200"
+          >
+            Nhà xuất bản
+          </th>
+          <th class="py-2 px-4 border border-gray-300">
+            {{ book.publishing_company }}
+          </th>
         </tr>
       </table>
     </div>
@@ -272,15 +211,19 @@
   <!-- related product -->
   <div class="container pb-16">
     <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">
-      Related products
+      Sản phẩm tương tự
     </h2>
-    <div class="grid grid-cols-4 gap-6">
-      <div class="bg-white shadow rounded overflow-hidden group">
+    <div class="grid grid-cols-5 gap-6">
+      <div
+        v-for="book in relatedProduct"
+        :key="book.id"
+        class="bg-white shadow rounded overflow-hidden group"
+      >
         <div class="relative">
           <img
-            src="../../assets/images/images/products/product1.jpg"
+            :src="book.avatar"
             alt="product 1"
-            class="w-full"
+            class="w-full h-52 object-contain"
           />
           <div
             class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
@@ -304,179 +247,19 @@
         <div class="pt-4 pb-3 px-4">
           <a href="#">
             <h4
-              class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition"
+              class="uppercase font-medium text-base mb-2 text-gray-800 hover:text-primary transition truncate"
+              :title="book.name"
             >
-              Guyer Chair
+              {{ book.name }}
             </h4>
           </a>
           <div class="flex items-baseline mb-1 space-x-2">
-            <p class="text-xl text-primary font-semibold">$45.00</p>
-            <p class="text-sm text-gray-400 line-through">$55.90</p>
-          </div>
-          <div class="flex items-center">
-            <div class="flex gap-1 text-sm text-yellow-400">
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-            </div>
-            <div class="text-xs text-gray-500 ml-3">(150)</div>
-          </div>
-        </div>
-        <a
-          href="#"
-          class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition"
-          >Add to cart</a
-        >
-      </div>
-      <div class="bg-white shadow rounded overflow-hidden group">
-        <div class="relative">
-          <img
-            src="../../assets/images/images/products/product4.jpg"
-            alt="product 1"
-            class="w-full"
-          />
-          <div
-            class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
-          >
-            <a
-              href="#"
-              class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-              title="view product"
-            >
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </a>
-            <a
-              href="#"
-              class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-              title="add to wishlist"
-            >
-              <i class="fa-solid fa-heart"></i>
-            </a>
-          </div>
-        </div>
-        <div class="pt-4 pb-3 px-4">
-          <a href="#">
-            <h4
-              class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition"
-            >
-              Bed King Size
-            </h4>
-          </a>
-          <div class="flex items-baseline mb-1 space-x-2">
-            <p class="text-xl text-primary font-semibold">$45.00</p>
-            <p class="text-sm text-gray-400 line-through">$55.90</p>
-          </div>
-          <div class="flex items-center">
-            <div class="flex gap-1 text-sm text-yellow-400">
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-            </div>
-            <div class="text-xs text-gray-500 ml-3">(150)</div>
-          </div>
-        </div>
-        <a
-          href="#"
-          class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition"
-          >Add to cart</a
-        >
-      </div>
-      <div class="bg-white shadow rounded overflow-hidden group">
-        <div class="relative">
-          <img
-            src="../../assets/images/images/products/product2.jpg"
-            alt="product 1"
-            class="w-full"
-          />
-          <div
-            class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
-          >
-            <a
-              href="#"
-              class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-              title="view product"
-            >
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </a>
-            <a
-              href="#"
-              class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-              title="add to wishlist"
-            >
-              <i class="fa-solid fa-heart"></i>
-            </a>
-          </div>
-        </div>
-        <div class="pt-4 pb-3 px-4">
-          <a href="#">
-            <h4
-              class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition"
-            >
-              Couple Sofa
-            </h4>
-          </a>
-          <div class="flex items-baseline mb-1 space-x-2">
-            <p class="text-xl text-primary font-semibold">$45.00</p>
-            <p class="text-sm text-gray-400 line-through">$55.90</p>
-          </div>
-          <div class="flex items-center">
-            <div class="flex gap-1 text-sm text-yellow-400">
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-              <span><i class="fa-solid fa-star"></i></span>
-            </div>
-            <div class="text-xs text-gray-500 ml-3">(150)</div>
-          </div>
-        </div>
-        <a
-          href="#"
-          class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition"
-          >Add to cart</a
-        >
-      </div>
-      <div class="bg-white shadow rounded overflow-hidden group">
-        <div class="relative">
-          <img
-            src="../../assets/images/images/products/product3.jpg"
-            alt="product 1"
-            class="w-full"
-          />
-          <div
-            class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
-          >
-            <a
-              href="#"
-              class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-              title="view product"
-            >
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </a>
-            <a
-              href="#"
-              class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-              title="add to wishlist"
-            >
-              <i class="fa-solid fa-heart"></i>
-            </a>
-          </div>
-        </div>
-        <div class="pt-4 pb-3 px-4">
-          <a href="#">
-            <h4
-              class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition"
-            >
-              Mattrass X
-            </h4>
-          </a>
-          <div class="flex items-baseline mb-1 space-x-2">
-            <p class="text-xl text-primary font-semibold">$45.00</p>
-            <p class="text-sm text-gray-400 line-through">$55.90</p>
+            <p class="text-xl text-primary font-semibold">
+              {{ toCurrency((book.price / 100) * 80) }}
+            </p>
+            <p class="text-sm text-gray-400 line-through">
+              {{ toCurrency(book.price) }}
+            </p>
           </div>
           <div class="flex items-center">
             <div class="flex gap-1 text-sm text-yellow-400">
@@ -509,24 +292,60 @@ export default {
   data() {
     return {
       book: [],
+      relatedProduct: [],
       isLoading: false,
+      quantity: 0,
     };
   },
   mounted() {
-    this.getAllCategory();
+    this.getBookById();
+    this.getBookByCategoryId();
   },
   methods: {
     navigateTo(route) {
       this.$router.push(route);
     },
+
+    increment() {
+      this.quantity++;
+    },
+    decrement() {
+      if (this.quantity > 0) {
+        this.quantity--;
+      }
+    },
+
     async getBookById() {
-      BookAPIs.getBookById(this.id)
+      BookAPIs.getBookById(this.$route.params.id)
         .then((response) => {
-          this.books = response.data;
+          this.book = response.data;
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    async getBookByCategoryId() {
+      BookAPIs.getBookByCategoryId(1, 1, 5)
+        .then((response) => {
+          this.relatedProduct = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    toCurrency(value) {
+      if (typeof value !== "number") {
+        return value;
+      }
+
+      let formatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "VND",
+        minimumFractionDigits: 0,
+      });
+      return formatter.format(value);
     },
   },
 };

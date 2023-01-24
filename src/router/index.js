@@ -19,7 +19,7 @@ const routes = [
     children: [
       { path: "/", name: "home", component: HomeView },
       { path: "/shop", name: "shop", component: ShopView },
-      { path: "/product", name: "product", component: ProductView },
+      { path: "/product/:id", name: "product", component: ProductView },
       { path: "/checkout", name: "checkout", component: CheckoutView },
       { path: "/profile", name: "profile", component: ProfileView },
       { path: "/wish-list", name: "wishList", component: WishListView },

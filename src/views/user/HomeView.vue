@@ -23,7 +23,7 @@
       </h2>
       <div class="grid grid-cols-5 gap-6">
         <div
-          v-for="book in books"
+          v-for="book in newBooks"
           :key="book.id"
           class="bg-white shadow rounded overflow-hidden group"
         >
@@ -37,7 +37,7 @@
               class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
             >
               <a
-                href="#"
+                @click="navigateTo(`/product/${book.id}`)"
                 class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
                 title="view product"
               >
@@ -53,19 +53,20 @@
             </div>
           </div>
           <div class="pt-4 pb-3 px-4">
-            <a href="#">
+            <a @click="navigateTo(`/product/${book.id}`)">
               <p
-                class="uppercase font-medium text-base mb-2 text-gray-800 hover:text-primary transition truncate"
+                class="uppercase font-medium text-base mb-2 text-gray-800 hover:text-primary transition truncate cursor-pointer"
+                :title="book.name"
               >
                 {{ book.name }}
               </p>
             </a>
             <div class="flex items-baseline mb-1 space-x-2">
               <p class="text-xl text-primary font-semibold">
-                {{ book.price }} VNĐ
+                {{ toCurrency((book.price / 100) * 80) }}
               </p>
               <p class="text-sm text-gray-400 line-through">
-                {{ book.price }} VNĐ
+                {{ toCurrency(book.price) }}
               </p>
             </div>
             <div class="flex items-center">
@@ -108,7 +109,7 @@
       </h2>
       <div class="grid grid-cols-5 gap-6">
         <div
-          v-for="book in books"
+          v-for="book in bestSellingBooks"
           :key="book.id"
           class="bg-white shadow rounded overflow-hidden group"
         >
@@ -122,7 +123,7 @@
               class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
             >
               <a
-                href="#"
+                @click="navigateTo(`/product/${book.id}`)"
                 class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
                 title="view product"
               >
@@ -138,19 +139,20 @@
             </div>
           </div>
           <div class="pt-4 pb-3 px-4">
-            <a href="#">
+            <a @click="navigateTo(`/product/${book.id}`)">
               <h4
                 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition truncate"
+                :title="book.name"
               >
                 {{ book.name }}
               </h4>
             </a>
             <div class="flex items-baseline mb-1 space-x-2">
               <p class="text-xl text-primary font-semibold">
-                {{ book.price }} VND
+                {{ toCurrency((book.price / 100) * 80) }}
               </p>
               <p class="text-sm text-gray-400 line-through">
-                {{ book.price }} VND
+                {{ toCurrency(book.price) }}
               </p>
             </div>
             <div class="flex items-center">
@@ -184,28 +186,58 @@ export default {
 
   data() {
     return {
-      books: [],
+      newBooks: [],
+      bestSellingBooks: [],
       isLoading: false,
       id: null,
     };
   },
   mounted() {
-    this.getAllBook();
+    this.getNewBook();
+    this.getBestSellingBook();
   },
   methods: {
     navigateTo(route) {
       this.$router.push(route);
     },
-    async getAllBook() {
+
+    async getNewBook() {
       this.isLoading = true;
-      BookAPIs.getAllBook(1, 5)
+      BookAPIs.getAllBook(1, 5, "createdAt")
         .then((response) => {
-          this.books = response.data;
+          this.newBooks = response.data;
+          console.log(this.newBooks);
         })
         .catch((error) => {
           console.log(error);
         });
       this.isLoading = false;
+    },
+
+    async getBestSellingBook() {
+      this.isLoading = true;
+      BookAPIs.getAllBook(1, 5, "name")
+        .then((response) => {
+          this.bestSellingBooks = response.data;
+          console.log(this.bestSellingBooks);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.isLoading = false;
+    },
+
+    toCurrency(value) {
+      if (typeof value !== "number") {
+        return value;
+      }
+
+      let formatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "VND",
+        minimumFractionDigits: 0,
+      });
+      return formatter.format(value);
     },
   },
 };

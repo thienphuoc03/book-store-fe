@@ -7,10 +7,10 @@
 </template>
 <script>
 // @ is an alias to /src
-import TheHeader from "@/components/TheHeader.vue";
-import TheNavBar from "@/components/TheNavBar.vue";
-import TheBreadcrumb from "@/components/TheBreadcrumb.vue";
-import TheFooter from "@/components/TheFooter.vue";
+import TheHeader from "@/views/user/components/TheHeader.vue";
+import TheNavBar from "@/views/user/components/TheNavBar.vue";
+import TheBreadcrumb from "@/views/user/components/TheBreadcrumb.vue";
+import TheFooter from "@/views/user/components/TheFooter.vue";
 
 export default {
   name: "IndexView",

@@ -80,7 +80,7 @@
           >
         </div>
         <a
-          v-if="isLogin"
+          v-if="!isLogin"
           @click="navigateTo('/login')"
           class="text-gray-200 hover:text-black hover:bg-white cursor-pointer transition border border-solid py-2 px-4 rounded-full"
           >Đăng nhập</a
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import CategoryAPIs from "../APIs/CategoryAPIs";
+import CategoryAPIs from "../../../APIs/CategoryAPIs";
 
 export default {
   name: "TheNavBar",
@@ -100,12 +100,20 @@ export default {
     return {
       categories: [],
       isLogin: false,
-      isLoading: false,
     };
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters.isLoggedIn;
+    },
   },
   mounted() {
     this.getAllCategory();
-    this.checkLogin();
+    if (!this.currentUser) {
+      this.isLogin = true;
+    } else {
+      this.isLogin = false;
+    }
   },
   methods: {
     navigateTo(route) {
@@ -113,7 +121,6 @@ export default {
     },
 
     async getAllCategory() {
-      this.isLoading = true;
       CategoryAPIs.getAllCategory()
         .then((response) => {
           this.categories = response.data;
@@ -121,7 +128,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-      this.isLoading = false;
     },
 
     async checkLogin() {

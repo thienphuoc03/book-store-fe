@@ -114,7 +114,7 @@
             <img
               :src="book.avatar"
               alt="product 1"
-              class="w-full object-cover"
+              class="w-full h-52 object-cover"
             />
             <div
               class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
@@ -136,19 +136,20 @@
             </div>
           </div>
           <div class="pt-4 pb-3 px-4">
-            <a href="#">
+            <a @click="navigateTo(`/product/${book.id}`)">
               <h4
-                class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition"
+                class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition truncate cursor-pointer"
+                :title="book.name"
               >
                 {{ book.name }}
               </h4>
             </a>
             <div class="flex items-baseline mb-1 space-x-2">
               <p class="text-xl text-primary font-semibold">
-                {{ book.price }} VND
+                {{ toCurrency((book.price / 100) * 80) }}
               </p>
               <p class="text-sm text-gray-400 line-through">
-                {{ book.price }} VND
+                {{ toCurrency(book.price) }}
               </p>
             </div>
             <div class="flex items-center">
@@ -200,6 +201,7 @@ export default {
     navigateTo(route) {
       this.$router.push(route);
     },
+
     async getAllCategory() {
       this.isLoading = true;
       CategoryAPIs.getAllCategory()
@@ -211,6 +213,7 @@ export default {
         });
       this.isLoading = false;
     },
+
     async getAllBook() {
       this.isLoading = true;
       BookAPIs.getAllBook(1, 12)
@@ -222,6 +225,7 @@ export default {
         });
       this.isLoading = false;
     },
+
     async getAllAuthor() {
       this.isLoading = true;
       AuthorAPIs.getAllAuthor()
@@ -232,6 +236,19 @@ export default {
           console.log(error);
         });
       this.isLoading = false;
+    },
+
+    toCurrency(value) {
+      if (typeof value !== "number") {
+        return value;
+      }
+
+      let formatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "VND",
+        minimumFractionDigits: 0,
+      });
+      return formatter.format(value);
     },
   },
 };

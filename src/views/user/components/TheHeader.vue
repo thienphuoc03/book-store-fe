@@ -1,8 +1,12 @@
 <template>
   <header class="py-4 shadow-sm bg-white">
     <div class="container flex items-center justify-between">
-      <a href="index.html">
-        <img src="../assets/images/logo.png" alt="Logo" class="w-16" />
+      <a @click="navigateTo('/')" class="flex items-center cursor-pointer">
+        <img src="../../../assets/images/logo.png" alt="Logo" class="w-16" />
+        <div class="flex items-center">
+          <h3 class="text-2xl font-bold text-red-500">Book</h3>
+          <h3 class="text-2xl font-bold">Store</h3>
+        </div>
       </a>
 
       <div class="w-full max-w-xl relative flex">
@@ -14,7 +18,7 @@
           name="search"
           id="search"
           class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
-          placeholder="search"
+          placeholder="Tên sách..."
         />
         <button
           class="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition"

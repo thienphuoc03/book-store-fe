@@ -232,7 +232,6 @@ export default {
       this.$router.push("/login");
     } else {
       this.user = this.$store.state.user;
-      console.log(this.user);
 
       this.getUserById();
     }
