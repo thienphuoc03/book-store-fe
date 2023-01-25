@@ -11,10 +11,17 @@ export default createStore({
       username: localStorage.getItem("user.username") || "",
       roles: localStorage.getItem("user.roles") || [],
     },
+
+    sideBarOpen: false,
   },
   getters: {
     isLoggedIn: (state) => !!state.user,
     authStatus: (state) => state.status,
+
+    // admin
+    sideBarOpen: (state) => {
+      return state.sideBarOpen;
+    },
   },
   mutations: {
     AUTH_REQUEST(state) {
@@ -33,6 +40,11 @@ export default createStore({
     AUTH_LOGOUT(state) {
       state.status = "";
       state.user = "";
+    },
+
+    // admin
+    toggleSidebar(state) {
+      state.sideBarOpen = !state.sideBarOpen;
     },
   },
   actions: {
@@ -78,6 +90,11 @@ export default createStore({
         delete axios.defaults.headers.common["Authorization"];
         resolve();
       });
+    },
+
+    // admin
+    toggleSidebar(context) {
+      context.commit("toggleSidebar");
     },
   },
   modules: {},
