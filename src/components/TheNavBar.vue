@@ -23,36 +23,6 @@
           >
             <span class="text-gray-600 text-sm">{{ category.name }}</span>
           </a>
-          <!-- <a
-            href="#"
-            class="flex items-center px-6 py-3 hover:bg-gray-100 transition"
-          >
-            <span class="ml-6 text-gray-600 text-sm">Terarce</span>
-          </a>
-          <a
-            href="#"
-            class="flex items-center px-6 py-3 hover:bg-gray-100 transition"
-          >
-            <span class="ml-6 text-gray-600 text-sm">Bed</span>
-          </a>
-          <a
-            href="#"
-            class="flex items-center px-6 py-3 hover:bg-gray-100 transition"
-          >
-            <span class="ml-6 text-gray-600 text-sm">office</span>
-          </a>
-          <a
-            href="#"
-            class="flex items-center px-6 py-3 hover:bg-gray-100 transition"
-          >
-            <span class="ml-6 text-gray-600 text-sm">Outdoor</span>
-          </a>
-          <a
-            href="#"
-            class="flex items-center px-6 py-3 hover:bg-gray-100 transition"
-          >
-            <span class="ml-6 text-gray-600 text-sm">Mattress</span>
-          </a> -->
         </div>
       </div>
 
@@ -80,8 +50,8 @@
           >
         </div>
         <a
-          v-if="!isLogin"
-          @click="navigateTo('/login')"
+          v-if="!currentUser"
+          @click="navigateTo('/auth/login')"
           class="text-gray-200 hover:text-black hover:bg-white cursor-pointer transition border border-solid py-2 px-4 rounded-full"
           >Đăng nhập</a
         >
@@ -91,7 +61,7 @@
 </template>
 
 <script>
-import CategoryAPIs from "../../../APIs/CategoryAPIs";
+import CategoryAPIs from "@/APIs/CategoryAPIs";
 
 export default {
   name: "TheNavBar",
@@ -99,7 +69,6 @@ export default {
   data() {
     return {
       categories: [],
-      isLogin: false,
     };
   },
   computed: {
@@ -109,11 +78,6 @@ export default {
   },
   mounted() {
     this.getAllCategory();
-    if (!this.currentUser) {
-      this.isLogin = true;
-    } else {
-      this.isLogin = false;
-    }
   },
   methods: {
     navigateTo(route) {
@@ -128,15 +92,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
-
-    async checkLogin() {
-      const user = localStorage.getItem("user");
-      if (user) {
-        this.isLogin = true;
-      } else {
-        this.isLogin = false;
-      }
     },
   },
 };

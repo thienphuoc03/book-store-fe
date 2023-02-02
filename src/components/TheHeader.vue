@@ -2,7 +2,7 @@
   <header class="py-4 shadow-sm bg-white">
     <div class="container flex items-center justify-between">
       <a @click="navigateTo('/')" class="flex items-center cursor-pointer">
-        <img src="../../../assets/images/logo.png" alt="Logo" class="w-16" />
+        <img src="../assets/images/logo.png" alt="Logo" class="w-16" />
         <div class="flex items-center">
           <h3 class="text-2xl font-bold text-red-500">Book</h3>
           <h3 class="text-2xl font-bold">Store</h3>
@@ -10,9 +10,9 @@
       </a>
 
       <div class="w-full max-w-xl relative flex">
-        <span class="absolute left-4 top-3 text-lg text-gray-400">
+        <!-- <span class="absolute left-4 top-3 text-lg text-gray-400">
           <i class="fa-solid fa-magnifying-glass"></i>
-        </span>
+        </span> -->
         <input
           type="text"
           name="search"
@@ -58,20 +58,18 @@
         </a>
         <a
           @click="navigateTo('/profile')"
-          class="text-center text-gray-700 hover:text-primary transition relative"
+          class="text-center w-full text-gray-700 hover:text-primary transition relative cursor-pointer"
         >
-          <div class="text-2xl">
-            <i class="fa-regular fa-user"></i>
+          <div class="text-2xl w-8 h-8 flex justify-center items-center">
+            <i v-if="!currentUser" class="fa-regular fa-user"></i>
+            <img
+              v-else
+              class="rounded-full object-cover"
+              src="https://i.pinimg.com/564x/2f/88/2f/2f882f3aad3aabbdc2137797dab75d2e.jpg"
+              alt="avatar"
+            />
           </div>
-          <div class="text-xs leading-3">
-            Account
-            <!-- <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li>Đăng xuất</li>
-            </ul> -->
-          </div>
+          <div class="text-xs leading-3">{{ username || "Account" }}</div>
         </a>
       </div>
     </div>
@@ -81,6 +79,18 @@
 <script>
 export default {
   name: "TheHeader",
+
+  data() {
+    return {
+      user: localStorage.getItem("user"),
+      username: localStorage.getItem("user.username"),
+    };
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters.isLoggedIn;
+    },
+  },
   methods: {
     navigateTo(route) {
       this.$router.push(route);

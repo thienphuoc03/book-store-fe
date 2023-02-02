@@ -12,14 +12,12 @@
             <div
               v-for="category in categories"
               :key="category.id"
-              class="flex items-center"
-            >
+              class="flex items-center">
               <input
                 type="checkbox"
                 name="cat-1"
                 id="cat-1"
-                class="text-primary focus:ring-0 rounded-sm cursor-pointer"
-              />
+                class="text-primary focus:ring-0 rounded-sm cursor-pointer" />
               <label for="cat-1" class="text-gray-600 ml-3 cusror-pointer">{{
                 category.name
               }}</label>
@@ -36,14 +34,12 @@
             <div
               v-for="author in authors"
               :key="author.id"
-              class="flex items-center"
-            >
+              class="flex items-center">
               <input
                 type="checkbox"
                 name="brand-1"
                 id="brand-1"
-                class="text-primary focus:ring-0 rounded-sm cursor-pointer"
-              />
+                class="text-primary focus:ring-0 rounded-sm cursor-pointer" />
               <label for="brand-1" class="text-gray-600 ml-3 cusror-pointer">{{
                 author.name
               }}</label>
@@ -60,16 +56,14 @@
               name="min"
               id="min"
               class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
-              placeholder="min"
-            />
+              placeholder="min" />
             <span class="mx-3 text-gray-500">-</span>
             <input
               type="text"
               name="max"
               id="max"
               class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
-              placeholder="max"
-            />
+              placeholder="max" />
           </div>
         </div>
       </div>
@@ -82,8 +76,7 @@
         <select
           name="sort"
           id="sort"
-          class="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-primary focus:border-primary"
-        >
+          class="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-primary focus:border-primary">
           <option value="">Mặc định</option>
           <option value="price-low-to-high">Giá thấp tới cao</option>
           <option value="price-high-to-low">Giá cao tới thấp</option>
@@ -92,13 +85,11 @@
 
         <div class="flex gap-2 ml-auto">
           <div
-            class="border border-primary w-10 h-9 flex items-center justify-center text-white bg-primary rounded cursor-pointer"
-          >
+            class="border border-primary w-10 h-9 flex items-center justify-center text-white bg-primary rounded cursor-pointer">
             <i class="fa-solid fa-grip-vertical"></i>
           </div>
           <div
-            class="border border-gray-300 w-10 h-9 flex items-center justify-center text-gray-600 rounded cursor-pointer"
-          >
+            class="border border-gray-300 w-10 h-9 flex items-center justify-center text-gray-600 rounded cursor-pointer">
             <i class="fa-solid fa-list"></i>
           </div>
         </div>
@@ -108,29 +99,24 @@
         <div
           v-for="book in books"
           :key="book.id"
-          class="bg-white shadow rounded overflow-hidden group"
-        >
+          class="bg-white shadow rounded overflow-hidden group">
           <div class="relative">
             <img
               :src="book.avatar"
               alt="product 1"
-              class="w-full h-52 object-cover"
-            />
+              class="w-full h-52 object-cover" />
             <div
-              class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
-            >
+              class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
               <a
                 href="#"
                 class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-                title="view product"
-              >
+                title="view product">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </a>
               <a
                 href="#"
                 class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-                title="add to wishlist"
-              >
+                title="add to wishlist">
                 <i class="fa-solid fa-heart"></i>
               </a>
             </div>
@@ -139,17 +125,16 @@
             <a @click="navigateTo(`/product/${book.id}`)">
               <h4
                 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition truncate cursor-pointer"
-                :title="book.name"
-              >
+                :title="book.name">
                 {{ book.name }}
               </h4>
             </a>
             <div class="flex items-baseline mb-1 space-x-2">
               <p class="text-xl text-primary font-semibold">
-                {{ toCurrency((book.price / 100) * 80) }}
+                {{ $filters.toCurrency((book.price / 100) * 80) }}
               </p>
               <p class="text-sm text-gray-400 line-through">
-                {{ toCurrency(book.price) }}
+                {{ $filters.toCurrency(book.price) }}
               </p>
             </div>
             <div class="flex items-center">
@@ -177,12 +162,12 @@
 </template>
 
 <script>
-import CategoryAPIs from "@/APIs/CategoryAPIs";
-import BookAPIs from "@/APIs/BookAPIs";
-import AuthorAPIs from "@/APIs/AuthorAPIs";
+import CategoryAPIs from '@/APIs/CategoryAPIs';
+import BookAPIs from '@/APIs/BookAPIs';
+import AuthorAPIs from '@/APIs/AuthorAPIs';
 
 export default {
-  name: "ShopPage",
+  name: 'ShopPage',
 
   data() {
     return {
@@ -205,10 +190,10 @@ export default {
     async getAllCategory() {
       this.isLoading = true;
       CategoryAPIs.getAllCategory()
-        .then((response) => {
+        .then(response => {
           this.categories = response.data;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
       this.isLoading = false;
@@ -217,10 +202,10 @@ export default {
     async getAllBook() {
       this.isLoading = true;
       BookAPIs.getAllBook(1, 12)
-        .then((response) => {
+        .then(response => {
           this.books = response.data;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
       this.isLoading = false;
@@ -229,26 +214,13 @@ export default {
     async getAllAuthor() {
       this.isLoading = true;
       AuthorAPIs.getAllAuthor()
-        .then((response) => {
+        .then(response => {
           this.authors = response.data;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
       this.isLoading = false;
-    },
-
-    toCurrency(value) {
-      if (typeof value !== "number") {
-        return value;
-      }
-
-      let formatter = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "VND",
-        minimumFractionDigits: 0,
-      });
-      return formatter.format(value);
     },
   },
 };
