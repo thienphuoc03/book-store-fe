@@ -1,45 +1,46 @@
-import { createStore } from "vuex";
-import axios from "axios";
-import BaseAPIs from "../APIs/BaseAPIs";
+import { createStore } from 'vuex';
+import axios from 'axios';
+import BaseAPIs from '../APIs/BaseAPIs';
+import router from '../router';
 
 export default createStore({
   state: {
-    success: "",
+    success: '',
     user: {
-      token: localStorage.getItem("user.token") || "",
-      id: localStorage.getItem("user.id") || "",
-      username: localStorage.getItem("user.username") || "",
-      roles: localStorage.getItem("user.roles") || [],
+      token: localStorage.getItem('token') || '',
+      id: localStorage.getItem('id') || '',
+      username: localStorage.getItem('username') || '',
+      roles: localStorage.getItem('roles') || '',
     },
 
     sideBarOpen: false,
   },
   getters: {
-    isLoggedIn: (state) => !!state.user,
-    authStatus: (state) => state.status,
+    isLoggedIn: state => !!state.user,
+    authStatus: state => state.status,
 
     // admin
-    sideBarOpen: (state) => {
+    sideBarOpen: state => {
       return state.sideBarOpen;
     },
   },
   mutations: {
     AUTH_REQUEST(state) {
-      state.status = "loading";
+      state.status = 'loading';
     },
 
     AUTH_SUCCESS(state, user) {
-      state.status = "success";
+      state.status = 'success';
       state.user = user;
     },
 
     AUTH_ERROR(state) {
-      state.status = "error";
+      state.status = 'error';
     },
 
     AUTH_LOGOUT(state) {
-      state.status = "";
-      state.user = "";
+      state.status = '';
+      state.user = '';
     },
 
     // admin
@@ -50,13 +51,13 @@ export default createStore({
   actions: {
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
-        commit("AUTH_REQUEST");
+        commit('AUTH_REQUEST');
         axios
           .post(`${BaseAPIs.baseURL}/auth/login`, {
             username: user.username,
             password: user.password,
           })
-          .then((response) => {
+          .then(response => {
             const token = response.data.access_token;
             const id = response.data.id;
             const username = response.data.username;
@@ -64,19 +65,19 @@ export default createStore({
 
             // localStorage.setItem("token", token);
             // localStorage.setItem("user", JSON.stringify(user));
-            localStorage.setItem("user.token", token);
-            localStorage.setItem("user.id", id);
-            localStorage.setItem("user.username", username);
-            localStorage.setItem("user.roles", roles);
+            localStorage.setItem('token', token);
+            localStorage.setItem('id', id);
+            localStorage.setItem('username', username);
+            localStorage.setItem('roles', roles);
 
-            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-            commit("AUTH_SUCCESS", user);
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            commit('AUTH_SUCCESS', user);
 
             resolve(response);
           })
-          .catch((err) => {
-            commit("AUTH_ERROR");
-            localStorage.removeItem("user");
+          .catch(err => {
+            commit('AUTH_ERROR');
+            localStorage.removeItem('user');
 
             reject(err);
           });
@@ -84,17 +85,25 @@ export default createStore({
     },
 
     logout({ commit }) {
-      return new Promise((resolve) => {
-        commit("AUTH_LOGOUT");
-        localStorage.removeItem("user");
-        delete axios.defaults.headers.common["Authorization"];
+      return new Promise(resolve => {
+        // clear the user from the store
+        commit('AUTH_LOGOUT');
+        commit('AUTH_SUCCESS', '');
+        localStorage.removeItem('token');
+        localStorage.removeItem('id');
+        localStorage.removeItem('username');
+        localStorage.removeItem('roles');
+
+        // delete Authorization from header
+        delete axios.defaults.headers.common['Authorization'];
+        router.push('/');
         resolve();
       });
     },
 
     // admin
     toggleSidebar(context) {
-      context.commit("toggleSidebar");
+      context.commit('toggleSidebar');
     },
   },
   modules: {},

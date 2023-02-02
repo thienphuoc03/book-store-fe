@@ -103,7 +103,9 @@
 
       <p class="mt-4 text-center text-gray-600">
         Don't have account?
-        <a @click="navigateTo('/register')" class="text-primary cursor-pointer"
+        <a
+          @click="navigateTo('/auth/register')"
+          class="text-primary cursor-pointer"
           >Register now</a
         >
       </p>
@@ -112,8 +114,6 @@
 </template>
 
 <script>
-// import AuthenticationAPIs from "@/APIs/AuthenticationAPIs";
-
 export default {
   name: "loginPage",
 
@@ -122,14 +122,6 @@ export default {
       username: "",
       password: "",
       showPassword: false,
-      // data: null,
-      // token: "",
-      // user: {
-      //   access_token: "",
-      //   id: "",
-      //   username: "",
-      //   roles: [],
-      // },
     };
   },
   methods: {
@@ -139,6 +131,7 @@ export default {
     toggleShowPassword() {
       this.showPassword = !this.showPassword;
     },
+
     async login() {
       let username = this.username;
       let password = this.password;
@@ -147,7 +140,20 @@ export default {
           username,
           password,
         })
-        .then(() => this.$router.push("/"))
+        .then(() => {
+          const role = localStorage.getItem("roles");
+          if (
+            role === "ROLE_ADMIN" ||
+            role === "ROLE_MANAGE" ||
+            role === "ROLE_EMPLOYEE"
+          ) {
+            this.$router.push("/dashboard");
+          } else if (role === "ROLE_USER") {
+            this.$router.push("/");
+          } else {
+            this.$router.push("/auth/login");
+          }
+        })
         .catch((err) => console.log(err));
     },
   },

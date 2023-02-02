@@ -17,6 +17,7 @@
     "core-js": "^3.8.3",
     "gulp": "^4.0.2",
     "gulp-append-prepend": "^1.0.9",
+    "moment": "^2.29.4",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.1.0"

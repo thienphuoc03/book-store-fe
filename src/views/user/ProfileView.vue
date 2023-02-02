@@ -8,8 +8,7 @@
           <img
             :src="userInfo.avatar"
             alt="profile"
-            class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover"
-          />
+            class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover" />
         </div>
         <div class="flex-grow">
           <p class="text-gray-600">Hello,</p>
@@ -18,13 +17,11 @@
       </div>
 
       <div
-        class="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600"
-      >
+        class="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600">
         <div class="space-y-1 pl-8">
           <a
             href="#"
-            class="relative text-primary block font-medium capitalize transition"
-          >
+            class="relative text-primary block font-medium capitalize transition">
             <span class="absolute -left-8 top-0 text-base">
               <i class="fa-regular fa-address-card"></i>
             </span>
@@ -32,20 +29,17 @@
           </a>
           <a
             href="#"
-            class="relative hover:text-primary block capitalize transition"
-          >
+            class="relative hover:text-primary block capitalize transition">
             Profile information
           </a>
           <a
             href="#"
-            class="relative hover:text-primary block capitalize transition"
-          >
+            class="relative hover:text-primary block capitalize transition">
             Manage addresses
           </a>
           <a
             href="#"
-            class="relative hover:text-primary block capitalize transition"
-          >
+            class="relative hover:text-primary block capitalize transition">
             Change password
           </a>
         </div>
@@ -53,8 +47,7 @@
         <div class="space-y-1 pl-8 pt-4">
           <a
             href="#"
-            class="relative hover:text-primary block font-medium capitalize transition"
-          >
+            class="relative hover:text-primary block font-medium capitalize transition">
             <span class="absolute -left-8 top-0 text-base">
               <i class="fa-solid fa-box-archive"></i>
             </span>
@@ -62,20 +55,17 @@
           </a>
           <a
             href="#"
-            class="relative hover:text-primary block capitalize transition"
-          >
+            class="relative hover:text-primary block capitalize transition">
             My returns
           </a>
           <a
             href="#"
-            class="relative hover:text-primary block capitalize transition"
-          >
+            class="relative hover:text-primary block capitalize transition">
             My Cancellations
           </a>
           <a
             href="#"
-            class="relative hover:text-primary block capitalize transition"
-          >
+            class="relative hover:text-primary block capitalize transition">
             My reviews
           </a>
         </div>
@@ -83,8 +73,7 @@
         <div class="space-y-1 pl-8 pt-4">
           <a
             href="#"
-            class="relative hover:text-primary block font-medium capitalize transition"
-          >
+            class="relative hover:text-primary block font-medium capitalize transition">
             <span class="absolute -left-8 top-0 text-base">
               <i class="fa-regular fa-credit-card"></i>
             </span>
@@ -92,8 +81,7 @@
           </a>
           <a
             href="#"
-            class="relative hover:text-primary block capitalize transition"
-          >
+            class="relative hover:text-primary block capitalize transition">
             voucher
           </a>
         </div>
@@ -101,8 +89,7 @@
         <div class="space-y-1 pl-8 pt-4">
           <a
             href="#"
-            class="relative hover:text-primary block font-medium capitalize transition"
-          >
+            class="relative hover:text-primary block font-medium capitalize transition">
             <span class="absolute -left-8 top-0 text-base">
               <i class="fa-regular fa-heart"></i>
             </span>
@@ -113,8 +100,7 @@
         <div class="space-y-1 pl-8 pt-4">
           <a
             @click="logout"
-            class="relative hover:text-primary block font-medium capitalize transition"
-          >
+            class="relative hover:text-primary block font-medium capitalize transition cursor-pointer">
             <span class="absolute -left-8 top-0 text-base">
               <i class="fa-solid fa-right-from-bracket"></i>
             </span>
@@ -137,8 +123,7 @@
               name="first"
               id="first"
               class="input-box"
-              :value="userInfo.name"
-            />
+              :value="userInfo.name" />
           </div>
           <div>
             <label for="last">Last name</label>
@@ -147,8 +132,7 @@
               name="last"
               id="last"
               class="input-box"
-              :value="userInfo.name"
-            />
+              :value="userInfo.name" />
           </div>
         </div>
         <div class="grid grid-cols-2 gap-4">
@@ -159,8 +143,7 @@
               name="birthday"
               id="birthday"
               class="input-box"
-              :value="userInfo.dob"
-            />
+              :value="userInfo.dob" />
           </div>
           <div>
             <label for="gender">Gender</label>
@@ -178,8 +161,7 @@
               name="email"
               id="email"
               class="input-box"
-              :value="userInfo.email"
-            />
+              :value="userInfo.email" />
           </div>
           <div>
             <label for="phone">Phone number</label>
@@ -188,8 +170,7 @@
               name="phone"
               id="phone"
               class="input-box"
-              :value="userInfo.phoneNumber"
-            />
+              :value="userInfo.phoneNumber" />
           </div>
         </div>
       </div>
@@ -197,8 +178,7 @@
       <div class="mt-4">
         <button
           type="submit"
-          class="py-3 px-4 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition font-medium"
-        >
+          class="py-3 px-4 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition font-medium">
           save changes
         </button>
       </div>
@@ -208,10 +188,11 @@
   <!-- ./wrapper -->
 </template>
 <script>
-import UserAPIs from "@/APIs/UserAPIs";
+import UserAPIs from '@/APIs/UserAPIs';
+import { mapActions } from 'vuex';
 
 export default {
-  name: "profilePage",
+  name: 'profilePage',
 
   data() {
     return {
@@ -229,7 +210,7 @@ export default {
   },
   mounted() {
     if (!this.currentUser) {
-      this.$router.push("/login");
+      this.$router.push('/auth/login');
     } else {
       this.user = this.$store.state.user;
 
@@ -239,19 +220,15 @@ export default {
   methods: {
     async getUserById() {
       UserAPIs.getUserById(this.user.id)
-        .then((response) => {
+        .then(response => {
           this.userInfo = response.data;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     },
 
-    async logout() {
-      this.$store.dispatch("logout").then(() => {
-        this.$router.push("/");
-      });
-    },
+    ...mapActions(['logout']),
   },
 };
 </script>

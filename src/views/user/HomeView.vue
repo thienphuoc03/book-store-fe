@@ -25,29 +25,24 @@
         <div
           v-for="book in newBooks"
           :key="book.id"
-          class="bg-white shadow rounded overflow-hidden group"
-        >
+          class="bg-white shadow rounded overflow-hidden group">
           <div class="relative">
             <img
               :src="book.avatar"
               alt="product 1"
-              class="w-full h-52 object-contain"
-            />
+              class="w-full h-52 object-contain" />
             <div
-              class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
-            >
+              class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
               <a
                 @click="navigateTo(`/product/${book.id}`)"
                 class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-                title="view product"
-              >
+                title="view product">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </a>
               <a
                 href="#"
                 class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-                title="add to wishlist"
-              >
+                title="add to wishlist">
                 <i class="fa-solid fa-heart"></i>
               </a>
             </div>
@@ -56,8 +51,7 @@
             <a @click="navigateTo(`/product/${book.id}`)">
               <p
                 class="uppercase font-medium text-base mb-2 text-gray-800 hover:text-primary transition truncate cursor-pointer"
-                :title="book.name"
-              >
+                :title="book.name">
                 {{ book.name }}
               </p>
             </a>
@@ -96,8 +90,7 @@
         <img
           src="../../assets/images/images/offer.jpg"
           alt="ads"
-          class="w-full"
-        />
+          class="w-full" />
       </a>
     </div>
     <!-- ./ads -->
@@ -111,29 +104,24 @@
         <div
           v-for="book in bestSellingBooks"
           :key="book.id"
-          class="bg-white shadow rounded overflow-hidden group"
-        >
+          class="bg-white shadow rounded overflow-hidden group">
           <div class="relative">
             <img
               :src="book.avatar"
               alt="product 1"
-              class="w-full h-52 object-contain"
-            />
+              class="w-full h-52 object-contain" />
             <div
-              class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition"
-            >
+              class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
               <a
                 @click="navigateTo(`/product/${book.id}`)"
                 class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-                title="view product"
-              >
+                title="view product">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </a>
               <a
                 href="#"
                 class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-                title="add to wishlist"
-              >
+                title="add to wishlist">
                 <i class="fa-solid fa-heart"></i>
               </a>
             </div>
@@ -142,17 +130,16 @@
             <a @click="navigateTo(`/product/${book.id}`)">
               <h4
                 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition truncate"
-                :title="book.name"
-              >
+                :title="book.name">
                 {{ book.name }}
               </h4>
             </a>
             <div class="flex items-baseline mb-1 space-x-2">
               <p class="text-xl text-primary font-semibold">
-                {{ toCurrency((book.price / 100) * 80) }}
+                {{ $filters.toCurrency((book.price / 100) * 80) }}
               </p>
               <p class="text-sm text-gray-400 line-through">
-                {{ toCurrency(book.price) }}
+                {{ $filters.toCurrency(book.price) }}
               </p>
             </div>
             <div class="flex items-center">
@@ -179,10 +166,10 @@
 </template>
 
 <script>
-import BookAPIs from "@/APIs/BookAPIs";
+import BookAPIs from '@/APIs/BookAPIs';
 
 export default {
-  name: "HomePage",
+  name: 'HomePage',
 
   data() {
     return {
@@ -203,12 +190,11 @@ export default {
 
     async getNewBook() {
       this.isLoading = true;
-      BookAPIs.getAllBook(1, 5, "createdAt")
-        .then((response) => {
+      BookAPIs.getAllBook(1, 5, 'createdAt')
+        .then(response => {
           this.newBooks = response.data;
-          console.log(this.newBooks);
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
       this.isLoading = false;
@@ -216,28 +202,14 @@ export default {
 
     async getBestSellingBook() {
       this.isLoading = true;
-      BookAPIs.getAllBook(1, 5, "name")
-        .then((response) => {
+      BookAPIs.getAllBook(1, 5, 'name')
+        .then(response => {
           this.bestSellingBooks = response.data;
-          console.log(this.bestSellingBooks);
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
       this.isLoading = false;
-    },
-
-    toCurrency(value) {
-      if (typeof value !== "number") {
-        return value;
-      }
-
-      let formatter = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "VND",
-        minimumFractionDigits: 0,
-      });
-      return formatter.format(value);
     },
   },
 };
