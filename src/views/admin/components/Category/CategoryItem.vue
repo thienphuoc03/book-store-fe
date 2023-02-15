@@ -201,7 +201,6 @@ export default {
       },
     };
   },
-  components: {},
   computed: {},
   mounted() {
     this.getAllCategory();

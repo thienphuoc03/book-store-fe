@@ -75,7 +75,9 @@
             </div>
           </div>
           <a
-            href="#"
+            @click="
+              addOrderDetail((order = { id: book.id, price: book.price }))
+            "
             class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition"
             >Add to cart</a
           >
@@ -154,7 +156,9 @@
             </div>
           </div>
           <a
-            href="#"
+            @click="
+              addOrderDetail((order = { id: book.id, price: book.price }))
+            "
             class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition"
             >Add to cart</a
           >
@@ -167,6 +171,7 @@
 
 <script>
 import BookAPIs from '@/APIs/BookAPIs';
+import OrderDetailAPIs from '../../APIs/OrderDetailAPIs';
 
 export default {
   name: 'HomePage',
@@ -210,6 +215,16 @@ export default {
           console.log(error);
         });
       this.isLoading = false;
+    },
+
+    async addOrderDetail(order) {
+      OrderDetailAPIs.addOrderDetail(order)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
   },
 };

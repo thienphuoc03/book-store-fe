@@ -92,7 +92,9 @@
 
       <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
         <a
-          href="#"
+          href@click="
+              addOrderDetail((order = { id: book.id, price: book.price }))
+            "
           class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
           <i class="fa-solid fa-bag-shopping"></i> Add to cart
         </a>
@@ -245,7 +247,7 @@
           </div>
         </div>
         <a
-          href="#"
+          @click="addOrderDetail((order = { id: book.id, price: book.price }))"
           class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition"
           >Add to cart</a
         >
@@ -257,6 +259,7 @@
 
 <script>
 import BookAPIs from '@/APIs/BookAPIs';
+import OrderDetailAPIs from '../../APIs/OrderDetailAPIs';
 
 export default {
   name: 'ProductPage',
@@ -301,6 +304,16 @@ export default {
       BookAPIs.getBookByCategoryId(1, 1, 5)
         .then(response => {
           this.relatedProduct = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
+    async addOrderDetail(order) {
+      OrderDetailAPIs.addOrderDetail(order)
+        .then(response => {
+          console.log(response);
         })
         .catch(error => {
           console.log(error);
